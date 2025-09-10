@@ -1,0 +1,3 @@
+[envs.python]
+command = "python3 ../prefix.py {filename} TEST"
+output.txt = "{filename}"
