@@ -1,0 +1,2 @@
+[envs.python]
+command = "python3 ../cfg.py {filename}"

@@ -5,13 +5,15 @@ def build_blocks(body):
     block = []
 
     for instr in body:
-        if 'op' in instr:
+        if 'op' in instr: 
             block.append(instr)
-
             if instr['op'] in ['jmp', 'br', 'ret']:
                 yield block
         else:
             yield block
+            block = [instr]
+    
+    yield block
 
 def map_blocks(blocks):
     map = {}
@@ -45,9 +47,14 @@ def build_cfg(map):
     return out
 
 if __name__ == "__main__":
-    with json.load(sys.argv[0]) as data:
+    with open(sys.argv[1]) as f:
+        data = json.load(f)
         for function in data['functions']:
             blocks = build_blocks(function['instrs'])
             map = map_blocks(blocks)
+            for k,v in map.items():
+                print(k)
+                print(v)
             cfg = build_cfg(map)
-            print(cfg)
+            for k,v in cfg.items():
+                print("Name: {} maps to {}".format(k,v))

@@ -1,0 +1,3 @@
+b0
+[{'dest': 'v', 'op': 'const', 'type': 'int', 'value': 42}]
+Name: b0 maps to []
