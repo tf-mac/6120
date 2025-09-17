@@ -2,6 +2,8 @@ use std::collections::HashMap;
 
 use crate::program::{Function, Instrs, Instruction, Program, Value};
 
+// This entire function is unfortunately spaghetti code, due to not using basic blocks explicitly
+// Its functional, but if I were you I'd just remake it from scratch
 fn func_lvn(mut func: Function) -> Function {
     let mut table: HashMap<Vec<String>, String> = HashMap::new();
     let mut var2num: HashMap<String, usize> = HashMap::new();
