@@ -6,3 +6,6 @@ command = "bril2json < {filename} | /home/tfm/6120/l3/target/debug/l3 dce | bril
 
 [envs.lvn]
 command = "bril2json < {filename} | /home/tfm/6120/l3/target/debug/l3 lvn | brili {args}"
+
+[envs.dom]
+command = "bril2json < {filename} | /home/tfm/6120/target/debug/hw6120 chk_dom"
