@@ -2,7 +2,7 @@ use std::{io::{self, Read}};
 
 use bpaf::Parser;
 use bpaf::{construct, positional, OptionParser};
-use hw6120::{cfg::{build_blocks, build_cfg, map_blocks}, dfa::reaching, dom::{dom, frontier}};
+use hw6120::{cfg::{build_blocks, build_cfg, map_blocks}, dfa::reaching, dom::{chk_dom, dom, frontier}};
 use hw6120::program::Program;
 
 pub fn options() -> OptionParser<String> {
@@ -41,6 +41,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let cfg = build_cfg(a,b,c.clone());
                 let dom = dom(cfg.clone(), c.get(0).cloned());
                 print!("{:#?}\n", frontier(cfg, dom))
+            },
+            "chk_dom" => {
+                let (a,b,c) = map_blocks(basic_blocks);
+                let cfg = build_cfg(a,b,c.clone());
+                let dom = dom(cfg.clone(), c.get(0).cloned());
+                print!("{:#?}\n", chk_dom(&cfg, &dom, c.get(0).cloned()))
             }
             j => print!("Mode {} not implemented\n", j)
         }

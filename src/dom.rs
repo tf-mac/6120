@@ -97,3 +97,48 @@ pub fn frontier(cfg: HashMap<String, Vec<String>>, dom: HashMap<String, HashSet<
     }
     frontier
 }
+
+pub fn dfs_chk(cfg: &HashMap<String, Vec<String>>, curr: &str, pass: &str, end: &str, passed: HashSet<String>) -> bool {
+    if curr == end && curr != pass {
+        print!("Failed: Reached end node {} but it is not the pass node {}\n", end, pass);
+        return false;
+    }
+    if passed.contains(curr) {
+        return true;
+    }
+    if curr == pass {
+        return true;
+    }
+    let mut new_passed = passed.clone();
+    new_passed.insert(curr.to_string());
+    if let Some(desc) = cfg.get(curr) {
+        for i in desc {
+            if !dfs_chk(cfg, i, pass, end, new_passed.clone()) {
+                print!("Failed: Could not find path from {} to {}\n", curr, i);
+                return false;
+            }
+        }
+    }
+    true
+}
+
+
+pub fn chk_dom(cfg: &HashMap<String, Vec<String>>, dom: &HashMap<String, HashSet<String>>, entry: Option<String>) -> bool {
+    match entry {
+        Some(e) => {
+            for (k, v) in dom {
+                for i in v {
+                    let mut passed = HashSet::new();
+                    passed.insert(e.clone());
+                    if !dfs_chk(cfg, &e, &k, &i, passed) {
+                        print!("{}, {}, {}\n", e, k, i);
+                        return false;
+                    }
+                }
+            }
+            true
+        },
+        None => dom.is_empty(),
+    }
+}
+
