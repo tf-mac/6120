@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap};
 
 use crate::program::{Function, Instr, Instruction};
 
@@ -80,4 +80,14 @@ pub fn build_cfg(map: HashMap<String, BasicBlock>, index: HashMap<String, usize>
         }
     }
     cfg
+}
+
+pub fn preds(cfg: HashMap<String, Vec<String>>) -> HashMap<String, Vec<String>> {
+    let mut preds = HashMap::<String, Vec<String>>::new();
+    for (k, v) in cfg.iter() {
+        for i in v {
+            preds.entry(i.clone()).or_insert_with(Vec::new).push(k.clone());
+        }
+    }
+    preds
 }

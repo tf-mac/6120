@@ -1,0 +1,8 @@
+[envs.base]
+command = "bril2json < {filename} | brili {args}"
+
+[envs.dce]
+command = "bril2json < {filename} | /home/tfm/6120/l3/target/debug/l3 dce | brili {args}"
+
+[envs.lvn]
+command = "bril2json < {filename} | /home/tfm/6120/l3/target/debug/l3 lvn | brili {args}"
